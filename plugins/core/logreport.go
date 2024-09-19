@@ -18,6 +18,7 @@
 package core
 
 import (
+	"fmt"
 	"time"
 
 	commonv3 "skywalking.apache.org/repo/goapi/collect/common/v3"
@@ -71,7 +72,7 @@ func (t *Tracer) ReportLog(ctx, timeObj interface{}, level, msg string, labels m
 		Body: &logv3.LogDataBody{
 			Type: "TEXT",
 			Content: &logv3.LogDataBody_Text{
-				Text: &logv3.TextLog{Text: msg},
+				Text: &logv3.TextLog{Text: fmt.Sprintf("[%s] %s", tracingContext.GetTraceID(), msg)},
 			},
 		},
 		TraceContext: &logv3.TraceContext{
