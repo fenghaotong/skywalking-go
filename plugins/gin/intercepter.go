@@ -55,7 +55,7 @@ func (h *ContextInterceptor) BeforeInvoke(invocation operator.Invocation) error 
 	if len(config.CollectRequestHeaders) > 0 {
 		collectRequestHeaders(s, context.Request.Header)
 	}
-
+	context.Writer.Header().Set("traceId", s.TraceID())
 	invocation.SetContext(s)
 	return nil
 }
